@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections.Generic;
 
@@ -14,6 +15,7 @@ namespace AddressBookUc
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
 
+   
 
         public Contact(string firstName, string lastName, string address, string city, string state, string zip, string phoneNumber, string email)
         {
@@ -25,6 +27,35 @@ namespace AddressBookUc
             Zip = zip;
             PhoneNumber = phoneNumber;
             Email = email;
+        }
+
+        public static void CreateAddressBook(string bookName)
+        {
+            if (!addressBooks.ContainsKey(bookName))
+            {
+                addressBooks[bookName] = new List<Contact>();
+                Console.WriteLine($"Address Book '{bookName}' created successfully.");
+            }
+            else
+            {
+                Console.WriteLine("Address Book already exists.");
+            }
+        }
+
+        public static void AddContact(string bookName, string firstName, string lastName, string address, string city, string state, string zip, string phoneNumber, string email)
+        {
+            if (addressBooks.ContainsKey(bookName))
+            {
+                Contact newContact = new Contact(firstName, lastName, address, city, state, zip, phoneNumber, email);
+                addressBooks[bookName].Add(newContact);
+                Console.WriteLine("Contact added successfully.");
+            }
+            else
+            {
+                Console.WriteLine("Address Book not found.");
+            }
+        }
+
         public static void DisplayContacts(string bookName)
         {
             if (addressBooks.ContainsKey(bookName))
@@ -137,8 +168,55 @@ namespace AddressBookUc
                     }
 
                     Console.WriteLine("Contact updated successfully.");
+
+                    Console.Write("Do you want to edit another detail? (y/n): ");
+                    if (Console.ReadLine().ToLower() != "y")
+                    {
+                        edit = false;
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("Address Book not found.");
             }
         }
 
+        public static void DeleteContact(string bookName)
+        {
+            if (addressBooks.ContainsKey(bookName))
+            {
+                var contacts = addressBooks[bookName];
+                Console.Write("Enter First Name of contact to delete: ");
+                string firstName = Console.ReadLine();
+                Console.Write("Enter Last Name of contact to delete: ");
+                string lastName = Console.ReadLine();
+
+                Contact contactToDelete = null;
+                foreach (var contact in contacts)
+                {
+                    if (contact.FirstName.Equals(firstName, StringComparison.OrdinalIgnoreCase) && contact.LastName.Equals(lastName, StringComparison.OrdinalIgnoreCase))
+                    {
+                        contactToDelete = contact;
+                        break;
+                    }
+                }
+
+                if (contactToDelete == null)
+                {
+                    Console.WriteLine("Contact not found.");
+                }
+                else
+                {
+                    contacts.Remove(contactToDelete);
+                    Console.WriteLine("Contact deleted successfully.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Address Book not found.");
+            }
+        }
+    }
 }
-}
+

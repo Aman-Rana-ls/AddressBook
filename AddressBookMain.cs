@@ -9,8 +9,6 @@ namespace AddressBookUc
             Console.WriteLine("Welcome to the Address Book System");
 
 
-
-
         private static void ManageAddressBook(string bookName)
         {
             while (true)
@@ -53,7 +51,16 @@ namespace AddressBookUc
                         break;
 
                     case "3":
-                        Contact.edit(bookName);
+                        Contact.EditContact(bookName);
+                        break;
+
+                    case "4":
+                        Contact.DeleteContact(bookName);
+                        break;
+
+                    case "5":
+                        return;
+
                     default:
                         Console.WriteLine("Invalid choice. Please try again.");
                         break;
