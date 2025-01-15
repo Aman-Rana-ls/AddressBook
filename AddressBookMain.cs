@@ -8,6 +8,40 @@ namespace AddressBookUc
         {
             Console.WriteLine("Welcome to the Address Book System");
 
+            while (true)
+            {
+                Console.WriteLine("\nMain Menu:");
+                Console.WriteLine("1. Create New Address Book");
+                Console.WriteLine("2. Select Address Book");
+                Console.WriteLine("3. Exit");
+                Console.Write("Enter your choice: ");
+
+                string choice = Console.ReadLine();
+
+                switch (choice)
+                {
+                    case "1":
+                        Console.Write("Enter the name of the new Address Book: ");
+                        string bookName = Console.ReadLine();
+                        Contact.CreateAddressBook(bookName);
+                        break;
+
+                    case "2":
+                        Console.Write("Enter the name of the Address Book to select: ");
+                        string selectedBook = Console.ReadLine();
+                        ManageAddressBook(selectedBook);
+                        break;
+
+                    case "3":
+                        Console.WriteLine("Exiting the program. Goodbye!");
+                        return;
+
+                    default:
+                        Console.WriteLine("Invalid choice. Please try again.");
+                        break;
+                }
+            }
+        }
 
         private static void ManageAddressBook(string bookName)
         {

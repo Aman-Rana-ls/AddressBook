@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 
@@ -15,7 +14,8 @@ namespace AddressBookUc
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
 
-   
+        
+        private static Dictionary<string, List<Contact>> addressBooks = new Dictionary<string, List<Contact>>();
 
         public Contact(string firstName, string lastName, string address, string city, string state, string zip, string phoneNumber, string email)
         {
@@ -219,4 +219,3 @@ namespace AddressBookUc
         }
     }
 }
-
